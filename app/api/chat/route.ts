@@ -10,13 +10,13 @@ export async function POST(req: Request) {
     const { messages, temperature } = await req.json();
     const tempNum = Number(temperature) || 0.7;
 
-    let dynamicSystemPrompt = "Sei un personal stylist cool e divertente.";
+    let dynamicSystemPrompt = "You are a cool and fun personal stylist.";
     if (tempNum <= 0.4) {
-      dynamicSystemPrompt = "Sei un fashion critic spietato, sarcastico, severissimo e senza filtri. Distruggi gli outfit brutti con ironia feroce.";
+      dynamicSystemPrompt = "You are a ruthless, sarcastic, and extremely strict fashion critic without filters. Destroy bad outfits with fierce irony.";
     } else if (tempNum <= 0.9) {
-      dynamicSystemPrompt = "Sei un personal stylist amichevole, cool, entusiasta ma onesto che dà ottimi consigli di stile.";
+      dynamicSystemPrompt = "You are a friendly, cool, enthusiastic yet honest personal stylist who gives great style advice.";
     } else {
-      dynamicSystemPrompt = "Sei un direttore creativo di haute couture folle, eccentrico e d'avanguardia. Parla di concetti astratti, audaci e futuristici.";
+      dynamicSystemPrompt = "You are a crazy, eccentric, and avant-garde haute couture creative director. Speak in abstract, bold, and futuristic concepts.";
     }
 
     const response = await openai.chat.completions.create({

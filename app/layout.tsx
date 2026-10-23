@@ -3,7 +3,7 @@ import React from 'react';
 
 export const metadata = {
   title: 'VibeCheck Fashion AI',
-  description: 'Il tuo personal stylist virtuale con IA',
+  description: 'Your personal AI fashion stylist',
 };
 
 export default function RootLayout({
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

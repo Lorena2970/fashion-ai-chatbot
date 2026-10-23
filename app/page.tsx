@@ -9,7 +9,7 @@ interface Message {
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Ciao! Sono il tuo Fashion Stylist personale. Dimmi che vestiti indossi o mandami una foto del tuo outfit: ti dirò se spacchi o se è un disastro! Regola la Temperature in alto per decidere quanto sarò clemente... 😈' }
+    { role: 'assistant', content: "Hello! I'm your personal Fashion Stylist. Tell me what you're wearing or send a photo of your outfit: I'll tell you if you're rocking it or if it's a disaster! Adjust the Temperature above to decide how merciful I'll be... 😈" }
   ]);
   const [input, setInput] = useState('');
   const [temperature, setTemperature] = useState(0.7);
@@ -17,9 +17,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const getTempDescription = (temp: number) => {
-    if (temp <= 0.4) return '🔥 Modalità: Critico Severo & Harsh';
-    if (temp <= 0.9) return '✨ Modalità: Stylist Amichevole & Cool';
-    return '🦄 Modalità: Folle Avant-Garde';
+    if (temp <= 0.4) return '🔥 Mode: Strict & Harsh Critic';
+    if (temp <= 0.9) return '✨ Mode: Friendly & Cool Stylist';
+    return '🦄 Mode: Crazy Avant-Garde';
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,7 @@ export default function Home() {
     let userContent: any = input;
     if (image) {
       userContent = [
-        { type: 'text', text: input || 'Analizza questo outfit e dammi il tuo verdetto!' },
+        { type: 'text', text: input || 'Analyze this outfit and give me your verdict!' },
         { type: 'image_url', image_url: { url: image } }
       ];
     }
@@ -61,10 +61,10 @@ export default function Home() {
       if (data.reply) {
         setMessages([...newMessages, { role: 'assistant', content: data.reply }]);
       } else {
-        setMessages([...newMessages, { role: 'assistant', content: 'Errore dell AI: ' + data.error }]);
+        setMessages([...newMessages, { role: 'assistant', content: 'AI Error: ' + data.error }]);
       }
     } catch (err) {
-      setMessages([...newMessages, { role: 'assistant', content: 'Errore di connessione al server.' }]);
+      setMessages([...newMessages, { role: 'assistant', content: 'Server connection error.' }]);
     } finally {
       setLoading(false);
     }
@@ -112,7 +112,7 @@ export default function Home() {
                   <div>
                     <p className="mb-2 font-medium">{msg.content[0]?.text}</p>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={msg.content[1]?.image_url?.url} alt="Outfit caricato" className="max-h-48 rounded-lg mt-2 object-cover border-2 border-pink-200 shadow-sm" />
+                    <img src={msg.content[1]?.image_url?.url} alt="Uploaded outfit" className="max-h-48 rounded-lg mt-2 object-cover border-2 border-pink-200 shadow-sm" />
                   </div>
                 )}
               </div>
@@ -121,7 +121,7 @@ export default function Home() {
           {loading && (
             <div className="flex justify-start">
               <div className="bg-white p-3 rounded-2xl text-sm text-purple-600 font-semibold italic animate-pulse border border-purple-100 shadow-sm">
-                Stylist al lavoro sull'outfit... 🎨✨
+                Stylist working on your outfit... 🎨✨
               </div>
             </div>
           )}
@@ -144,11 +144,11 @@ export default function Home() {
             type="text" 
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Scrivi i tuoi vestiti o carica una foto..." 
+            placeholder="Describe your outfit or upload a photo..." 
             className="flex-1 border border-purple-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 bg-purple-50/50"
           />
           <button type="submit" disabled={loading} className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md transition disabled:opacity-50">
-            Invia 🚀
+            Send 🚀
           </button>
         </form>
 

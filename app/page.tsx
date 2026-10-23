@@ -2,8 +2,13 @@
 
 import { useState } from 'react';
 
+interface Message {
+  role: string;
+  content: any;
+}
+
 export default function Home() {
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: 'Ciao! Sono il tuo Fashion Stylist personale. Dimmi che vestiti indossi o mandami una foto del tuo outfit: ti dirò se spacchi o se è un disastro! Regola la Temperature in alto per decidere quanto sarò clemente... 😈' }
   ]);
   const [input, setInput] = useState('');
@@ -68,7 +73,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 md:p-8 bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-200 text-gray-800">
       <div className="w-full max-w-2xl bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-6 flex flex-col h-[90vh] border border-white/50">
-
+        
         <div className="border-b pb-4 mb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div>
             <h1 className="text-2xl font-black bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
@@ -76,7 +81,7 @@ export default function Home() {
             </h1>
             <p className="text-xs font-medium text-purple-600">{getTempDescription(temperature)}</p>
           </div>
-
+          
           <div className="flex flex-col items-end bg-purple-50 p-2.5 rounded-xl border border-purple-100">
             <label className="text-xs font-bold text-purple-900 mb-1">
               Temperature: <span className="text-pink-600 font-extrabold">{temperature}</span>
@@ -105,9 +110,9 @@ export default function Home() {
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                 ) : (
                   <div>
-                    <p className="mb-2 font-medium">{msg.content[0].text}</p>
+                    <p className="mb-2 font-medium">{msg.content[0]?.text}</p>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={msg.content[1].image_url.url} alt="Outfit caricato" className="max-h-48 rounded-lg mt-2 object-cover border-2 border-pink-200 shadow-sm" />
+                    <img src={msg.content[1]?.image_url?.url} alt="Outfit caricato" className="max-h-48 rounded-lg mt-2 object-cover border-2 border-pink-200 shadow-sm" />
                   </div>
                 )}
               </div>
